@@ -1,8 +1,10 @@
 package com.sustainability;
 
+import java.sql.Connection;
+
 public interface DOADatebaseManager {
 
-    void getConnection();
+    Connection getConnection();
 
     void addMeasesurementToDatebase();
 

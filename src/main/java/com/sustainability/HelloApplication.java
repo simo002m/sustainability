@@ -21,6 +21,8 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+        DOADatebaseManager Bingbong = new ManageDatabase();
+        Bingbong.getConnection();
 
         readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt");
         launch();
