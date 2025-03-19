@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="988.0" style="-fx-background-color: #f8f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="988.0" style="-fx-background-color: #f8f8ff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sustainability.HelloController">
    <top>
-      <Label text="Søjlediagrammer" textFill="#4d4747" BorderPane.alignment="CENTER">
+      <Label text="Søjlediagrammer" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -25,7 +24,7 @@
    <center>
       <HBox prefHeight="425.0" prefWidth="988.0" BorderPane.alignment="CENTER">
          <children>
-            <BarChart prefHeight="470.0" prefWidth="498.0">
+            <BarChart prefHeight="470.0" prefWidth="491.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -33,7 +32,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <BarChart prefHeight="470.0" prefWidth="483.0">
+            <BarChart prefHeight="470.0" prefWidth="490.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
