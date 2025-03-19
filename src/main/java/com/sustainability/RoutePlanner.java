@@ -26,6 +26,8 @@ private final double DIST_SONDERBYSOMMERHUS_BROAGER = DIST_DREJBY_SONDERBYSOMMER
 private final int AVERAGE_KM_HOUR = 55;
 
 public Route planRoute(){
-
+    Route r;
+    r = new Route(60,50);
+    return r;
 }
 }
