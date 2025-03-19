@@ -2,10 +2,10 @@ package com.sustainability;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class ReadFile{
@@ -45,25 +45,25 @@ public class ReadFile{
             compartment = scanner.next();
             fillPercentage = scanner.next();
 
-            String dateOnly = convertDatetimeToDate(date);
-            String lastEmptiedDate = convertDatetimeToDate(lastEmptied);
+            Date dateOnly = convertDatetimeToDate(date);
+            Date lastEmptiedDate = convertDatetimeToDate(lastEmptied);
 
             scanner.nextLine();
 
-            // add SolarData objects with arguments to arraylist
+            // add measurements to the measurements array
             measurements.add(new Measurement(id, dateOnly, overFlow, lastEmptiedDate, wasAccessible, compartment, fillPercentage));
 
-
         }
-        for (int i = 0; i < measurements.size(); i++){
-            System.out.println(measurements.get(i));
+        for (Measurement measurement : measurements) {
+            System.out.println(measurement);
         }
         return measurements;
     }
-        public static String convertDatetimeToDate(String dateTime) {
-        String dateOnly = dateTime.split(" ")[0];
 
+    public static Date convertDatetimeToDate(String dateTime) {
+        java.sql.Date dateOnly = Date.valueOf(dateTime.split(" ")[0]);
+        System.out.println("CONVERTED DATE: " + dateOnly);
         return dateOnly;
-    }
+        }
 }
 
