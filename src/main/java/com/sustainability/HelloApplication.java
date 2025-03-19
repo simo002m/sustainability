@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static com.sustainability.ReadFile.readCVSFile;
 
 public class HelloApplication extends Application {
     @Override
@@ -17,7 +20,9 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
+        readCVSFile("src/main/resources/com/sustainability/CVSFile/trash_bin_measurements_v2.txt");
         launch();
     }
 }
