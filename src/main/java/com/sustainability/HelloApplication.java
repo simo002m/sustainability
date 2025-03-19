@@ -5,7 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static com.sustainability.ReadFile.readCVSFile;
 
 public class HelloApplication extends Application {
     @Override
@@ -17,7 +22,16 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, SQLException {
+        DOADatebaseManager datebaseManager = new ManageDatabase();
+        datebaseManager.getConnection();
+
+
+        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt"));
+        for (Measurement measurement : measurements){
+            datebaseManager.addMeasesurementToDatebase(measurement);
+        }
+
         launch();
     }
 }
