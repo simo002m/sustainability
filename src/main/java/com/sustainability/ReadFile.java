@@ -30,11 +30,11 @@ public class ReadFile{
         ArrayList<Measurement> measurements = new ArrayList<Measurement>();
 
         File inputFile = new File(filepath);
-        Scanner scanner = new Scanner(inputFile).useDelimiter(",");
+        Scanner scanner = new Scanner(inputFile).useDelimiter("[,\\n\\r]");
 
         scanner.nextLine(); // skip first line (tsv table header)
 
-        while (scanner.hasNext())
+        while (scanner.hasNextLine())
         {
             // read data from tsv file
             id = scanner.next();
