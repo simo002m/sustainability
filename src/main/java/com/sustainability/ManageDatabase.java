@@ -11,6 +11,4 @@ public class ManageDatabase implements DOADatebaseManager{
     public void addMeasesurementToDatebase() {
 
     }
-
-
 }
