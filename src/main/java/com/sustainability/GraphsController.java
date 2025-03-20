@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphsController {
-    private ArrayList<Measurement> data;
+    private ArrayList<> data;
 
     @FXML
     private Label errorMessage; // Label to show error message when choosing invalid choice
@@ -32,45 +32,41 @@ public class GraphsController {
     // Initializes and reads the data file
     @FXML
     public void initialize() {
-            for (Measurement measurement : data) {
-                // finds all siteIDs that are not currently added to siteDDL
-                if (!siteDDL.getItems().contains(String.valueOf(measurement.getID()))) {
-                    // convert int to String, since choicebox only takes Strings
-                    siteDDL.getItems().add(String.valueOf(measurement.getID()));
-                }
+        for (Route : data) {
+            // finds all siteIDs that are not currently added to siteDDL
+            if (!siteDDL.getItems().contains(String.valueOf(measurement.getID()))) {
+                // convert int to String, since choicebox only takes Strings
+                siteDDL.getItems().add(String.valueOf(measurement.getID()));
             }
+        }
 
-            siteDDL.setValue(String.valueOf(data.get(0).getID()));
+        siteDDL.setValue(String.valueOf(data.get(0).getID()));
 
-            // Ensure both charts start hidden
-            monthGraph.setVisible(false);
-            yearGraph.setVisible(false);
+        // Ensure both charts start hidden
+        monthGraph.setVisible(false);
+        yearGraph.setVisible(false);
     }
 
     // The on action for the search button
     public void createChartClick() {
-        ArrayList<Integer> totalsWhs = new ArrayList<>();
+        ArrayList<Integer> kms = new ArrayList<>();
         ArrayList<Integer> times = new ArrayList<>();
         HashMap<Integer, Integer> dailyTotals = new HashMap<>();
-
-        diagramTypeDDL.setText("Bar Chart"); // Sets "default" for the text field
-        errorMessage.setText(""); // hide error message
-        productionTotal.setText(""); // Resets the production total label
 
         LocalDate datePicked = dateDP.getValue();
         int siteIDPicked = Integer.parseInt(siteDDL.getValue()); // get siteID from sites choice box and convert it to int
 
-        for (SolarData solarData : data) {
+        for (Measurement measurement : data) {
             // Check for the selected site and date match
-            if (siteIDPicked == solarData.getSiteID()) {
+            if (measurementIDPicked == measurement.getID()) {
                 // Add to day chart data
-                if (datePicked.equals(solarData.getDate())) {
-                    totalsWhs.add(solarData.getWattPerHour());
+                if (datePicked.equals(measurement.getDate())) {
+                    kms.add(measurement.());
                     times.add(solarData.getTime());
                 }
 
                 // Add to month chart data
-                if (datePicked.getMonth() == solarData.getDate().getMonth() && datePicked.getYear() == solarData.getDate().getYear())
+                if (datePicked.getMonth() == measurement.getDate().getMonth() && datePicked.getYear() == measurement.getDate().getYear())
                 {
                     int day = solarData.getDate().getDayOfMonth();
                     dailyTotals.put(day, dailyTotals.getOrDefault(day, 0) + solarData.getWattPerHour());
