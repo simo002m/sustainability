@@ -30,6 +30,10 @@ public class RoutePlanner {
 
     private final int AVERAGE_KM_HOUR = 55;
 
+    private boolean sonderkobbel;
+    private boolean osterby;
+    private boolean sonderbycam;
+    private boolean sonderbysomhus;
 
     public Route planRoute(Date collectionDate) throws SQLException {
         Route r;
