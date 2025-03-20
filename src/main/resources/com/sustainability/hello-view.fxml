@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.sustainability.GraphsController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="988.0" style="-fx-background-color: #f8f8ff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sustainability.HelloController">
+   <top>
+      <Label text="Søjlediagrammer" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+   </top>
+   <left>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+   </left>
+   <right>
+
+   </right>
+   <bottom>
+   </bottom>
+   <center>
+      <HBox prefHeight="425.0" prefWidth="988.0" BorderPane.alignment="CENTER">
+         <children>
+            <BarChart prefHeight="470.0" prefWidth="491.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+            <BarChart prefHeight="470.0" prefWidth="490.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children></HBox>
+   </center>
+   <bottom>
+      <HBox prefHeight="60.0" prefWidth="990.0" BorderPane.alignment="CENTER">
+         <children>
+            <ChoiceBox fx:id="ChooseMonth1" prefWidth="150.0" style="-fx-background-color: #e6e6fa; -fx-border-color: #808080;">
+               <HBox.margin>
+                  <Insets left="190.0" top="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ChooseMonth2" prefWidth="150.0" style="-fx-background-color: #e6e6fa; -fx-border-color: #808080;">
+               <HBox.margin>
+                  <Insets left="350.0" top="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
