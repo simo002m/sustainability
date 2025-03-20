@@ -2,6 +2,7 @@ package com.sustainability;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ManageDatabase implements DOADatebaseManager{
@@ -65,6 +66,21 @@ public class ManageDatabase implements DOADatebaseManager{
             System.out.println(e.getMessage());
             System.out.println("Failed to add measurement to the database.");
         }
+    }
+
+    @Override
+    public List<String> readCollectionLocations(Date collectionDate) throws SQLException {
+        List<String> locations = new ArrayList<String>();
+        String sqlStatement = "SELECT DISTINCT fldAddress FROM tblBinLocation WHERE fldBinID IN (SELECT tblEmptyings.fldBinID from tblEmptyings INNER JOIN tblCompartments ON tblEmptyings.fldBinID = tblCompartments.fldTrashBinID WHERE tblEmptyings.fldDate = ? AND tblCompartments.fldFillPercentage > 33);";
+
+        PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+        //TBD TBD TBD TBD
+        //Temporary:
+        locations.add("Campingplads Sønderby");
+        locations.add("Campingplads Drejby");
+        locations.add("Sommerhusområdet Sønderby");
+
+        return locations;
     }
 
     @Override
