@@ -2,6 +2,8 @@ package com.sustainability;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 public class HelloController {
     @FXML
@@ -41,7 +44,8 @@ public class HelloController {
     @FXML
     public void initialize() {
         // Load the CSS file
-        BarChart1.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/sustainability/BarChart.css")).toExternalForm());}
+        BarChart1.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/sustainability/BarChart.css")).toExternalForm());
+    }
 
     @FXML
     public void GetDataOnClick(ActionEvent event) {
@@ -146,4 +150,15 @@ public class HelloController {
 
         ShowBarChart(percentOverflow);
     }
+}
+
+public void openGraphsStage() throws IOException
+{
+    Stage graphsStage = new Stage();
+    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("graphs.fxml"));
+    Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
+    graphsStage.setTitle("Grafer");
+    graphsStage.setResizable(false);
+    graphsStage.setScene(scene2);
+    graphsStage.show();
 }
