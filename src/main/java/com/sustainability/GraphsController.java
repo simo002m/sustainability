@@ -32,16 +32,6 @@ public class GraphsController {
     // Initializes and reads the data file
     @FXML
     public void initialize() {
-        for (Route : data) {
-            // finds all siteIDs that are not currently added to siteDDL
-            if (!siteDDL.getItems().contains(String.valueOf(measurement.getID()))) {
-                // convert int to String, since choicebox only takes Strings
-                siteDDL.getItems().add(String.valueOf(measurement.getID()));
-            }
-        }
-
-        siteDDL.setValue(String.valueOf(data.get(0).getID()));
-
         // Ensure both charts start hidden
         monthGraph.setVisible(false);
         yearGraph.setVisible(false);
@@ -49,51 +39,17 @@ public class GraphsController {
 
     // The on action for the search button
     public void createChartClick() {
-        ArrayList<Integer> kms = new ArrayList<>();
-        ArrayList<Integer> times = new ArrayList<>();
-        HashMap<Integer, Integer> dailyTotals = new HashMap<>();
+        ArrayList<Integer> originalKms = new ArrayList<>();
+        ArrayList<Integer> newKms = new ArrayList<>();
+        ArrayList<Integer> originalTime = new ArrayList<>();
+        ArrayList<Integer> newTime = new ArrayList<>();
 
-        LocalDate datePicked = dateDP.getValue();
-        int siteIDPicked = Integer.parseInt(siteDDL.getValue()); // get siteID from sites choice box and convert it to int
-
-        for (Measurement measurement : data) {
-            // Check for the selected site and date match
-            if (measurementIDPicked == measurement.getID()) {
-                // Add to day chart data
-                if (datePicked.equals(measurement.getDate())) {
-                    kms.add(measurement.());
-                    times.add(solarData.getTime());
-                }
-
-                // Add to month chart data
-                if (datePicked.getMonth() == measurement.getDate().getMonth() && datePicked.getYear() == measurement.getDate().getYear())
-                {
-                    int day = solarData.getDate().getDayOfMonth();
-                    dailyTotals.put(day, dailyTotals.getOrDefault(day, 0) + solarData.getWattPerHour());
-                }
-            }
-            // Calculations for monthly production
-            double totalProductionMonth = 0;
-            for (int dayTotal : dailyTotals.values()) {
-                totalProductionMonth += dayTotal;
-            }
-
-            productionTotal.setText(String.valueOf(totalProductionMonth / 1000) + " kWh"); // convert to String
-        }
-
-        // Generate charts if data is available
-        if (totalsWhs.isEmpty() && dailyTotals.isEmpty()) {
-            errorMessage.setText("No data for chosen date or month.");
-        } else {
-            createMonthGraph(siteIDPicked, datePicked, totalsWhs, times);
-            createYearGraph(siteIDPicked, datePicked, dailyTotals);
-        }
-
-
+        createMonthGraph();
+        createYearGraph();
     }
 
     // Create the day chart
-    public void createMonthGraph(int siteIDPicked, LocalDate datePicked, ArrayList<Integer> totalWhs, ArrayList<Integer> times) {
+    public void createMonthGraph() {
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
         series.setName("Site ID: " + siteIDPicked + "\nDate: " + datePicked.toString());
 
@@ -105,7 +61,7 @@ public class GraphsController {
     }
 
     // Create the month chart
-    public void createYearGraph(int siteIDPicked, LocalDate datePicked, HashMap<Integer, Integer> dailyTotals) {
+    public void createYearGraph() {
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
         series.setName("Site ID: " + siteIDPicked + "\nMonth: " + datePicked.getMonth() + " " + datePicked.getYear());
 
