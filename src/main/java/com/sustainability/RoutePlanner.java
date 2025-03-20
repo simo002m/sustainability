@@ -53,6 +53,21 @@ public class RoutePlanner {
             r = new Route();
         }
 
+        else {
+            sonderkobbel = locations.contains("Campingplads Sønderkobbel");
+            osterby = locations.contains("Sommerhusområdet Østerby");
+            sonderbycam = locations.contains("Campingplads Sønderby");
+            sonderbysomhus = locations.contains("Sommerhusområdet Sønderby");
+
+            if (sonderkobbel&&osterby&&sonderbycam&&sonderbysomhus) {
+                //still counts full bincollectiontime, needs to be changed
+                r = new Route();
+                return r;
+            }
+            else if(sonderkobbel&&osterby&&sonderbycam) {
+                dist = DIST_DREJBY_SONDERKOBBEL + DIST_SONDERKOBBEL_OSTERBY + DIST_OSTERBY_SONDERBYCAMPING;
+            }
+        }
         //times shortest route with AVERAGE_KM_HOUR
 
         //initialise returnroute
