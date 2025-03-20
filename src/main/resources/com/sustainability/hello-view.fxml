@@ -53,6 +53,11 @@
    <bottom>
       <HBox prefHeight="60.0" prefWidth="990.0" BorderPane.alignment="CENTER">
          <children>
+            <Button mnemonicParsing="false" onAction="#openGraphsStage" text="Vis grafer">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
             <DatePicker fx:id="ChooseDate1">
                <HBox.margin>
                   <Insets left="180.0" />

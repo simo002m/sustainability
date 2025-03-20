@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class GraphsController {
     private String[] months = {"Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"};
-    private int[] monthsLength = {Month.JANUARY.length(false), Month.FEBRUARY.length(false), Month.MARCH.length(false), Month.APRIL.length(false), Month.MAY.length(false), Month.JUNE.length(false), Month.JULY.length(false), Month.AUGUST.length(false), Month.SEPTEMBER.length(false), Month.OCTOBER.length(false), Month.NOVEMBER.length(false), Month.DECEMBER.length(false)};
 
     private ArrayList<Integer> oldKms = new ArrayList<Integer>();
     private ArrayList<Integer> newKms = new ArrayList<Integer>();
@@ -21,11 +20,14 @@ public class GraphsController {
     private ArrayList<Integer> savedKms = new ArrayList<Integer>();
     private ArrayList<Integer> savedTime = new ArrayList<Integer>();
 
-    private int minKm = 50;
-    private int maxKm = 60;
+    private int oldRouteKms = 80;
+    private int oldRouteMinutes = 135;
 
-    private int minTime = 80;
-    private int maxTime = 100;
+    private int minKm = 60;
+    private int maxKm = 70;
+
+    private int minTimeMinutes = 100;
+    private int maxTimeMinutes = 110;
 
     @FXML
     private LineChart<String, Integer> kmGraph;
@@ -37,16 +39,15 @@ public class GraphsController {
     @FXML
     public void initialize() {
         for (int month = 0; month < 12; month++) {
-            oldKms.add(80 * monthsLength[month]);
-            newKms.add((new Random().nextInt(maxKm - minKm) + minKm) * monthsLength[month]);
+            oldKms.add(oldRouteKms * 4);
+            newKms.add((new Random().nextInt(maxKm - minKm) + minKm) * 4);
 
-            oldTime.add(135 * monthsLength[month]);
-            newTime.add((new Random().nextInt(maxTime - minTime) + minTime) * monthsLength[month]);
+            oldTime.add(oldRouteMinutes * 4);
+            newTime.add((new Random().nextInt(maxTimeMinutes - minTimeMinutes) + minTimeMinutes) * 4);
 
             savedKms.add(oldKms.get(month) - newKms.get(month));
             savedTime.add(oldTime.get(month) - newTime.get(month));
         }
-
         createGraphs();
     }
 
@@ -70,11 +71,11 @@ public class GraphsController {
             oldKmsSeries.getData().add(new XYChart.Data<>(months[i], oldKms.get(i)));
             newKmsSeries.getData().add(new XYChart.Data<>(months[i], newKms.get(i)));
 
-            oldTimeSeries.getData().add(new XYChart.Data<>(months[i], oldTime.get(i)));
-            newTimeSeries.getData().add(new XYChart.Data<>(months[i], newTime.get(i)));
+            oldTimeSeries.getData().add(new XYChart.Data<>(months[i], oldTime.get(i) / 60));
+            newTimeSeries.getData().add(new XYChart.Data<>(months[i], newTime.get(i) / 60));
 
             savedKmsSeries.getData().add(new XYChart.Data<>(months[i], savedKms.get(i)));
-            savedTimeSeries.getData().add(new XYChart.Data<>(months[i], savedTime.get(i)));
+            savedTimeSeries.getData().add(new XYChart.Data<>(months[i], savedTime.get(i) / 60));
         }
 
         kmGraph.getData().addAll(oldKmsSeries, newKmsSeries);

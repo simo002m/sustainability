@@ -150,15 +150,15 @@ public class HelloController {
 
         ShowBarChart(percentOverflow);
     }
-}
 
-public void openGraphsStage() throws IOException
-{
-    Stage graphsStage = new Stage();
-    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("graphs.fxml"));
-    Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
-    graphsStage.setTitle("Grafer");
-    graphsStage.setResizable(false);
-    graphsStage.setScene(scene2);
-    graphsStage.show();
+    public void openGraphsStage() throws IOException
+    {
+        Stage graphsStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("graphs.fxml"));
+        Scene scene2 = new Scene(fxmlLoader.load(), 900, 700);
+        graphsStage.setTitle("Grafer");
+        graphsStage.setResizable(false);
+        graphsStage.setScene(scene2);
+        graphsStage.show();
+    }
 }
