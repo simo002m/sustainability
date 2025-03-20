@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphsController {
-    private ArrayList<NewRoute> oldRoute;
-    private ArrayList<OldRoutes> newRoute;
+    private ArrayList<> oldRoutes;
+    private ArrayList<> newRoutes;
 
     @FXML
     private DatePicker dateDP; // DP: Date Picker
