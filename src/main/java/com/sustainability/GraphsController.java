@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphsController {
-    private ArrayList<> data;
+    private ArrayList<TimeCalculater> data;
 
     @FXML
     private Label errorMessage; // Label to show error message when choosing invalid choice
