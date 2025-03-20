@@ -20,15 +20,11 @@ public class GraphsController {
     private ArrayList<OldRoutes> newRoute;
 
     @FXML
-    private Label errorMessage; // Label to show error message when choosing invalid choice
-    @FXML
-    private ChoiceBox<String> siteDDL; // DDL: Drop Down List
-    @FXML
     private DatePicker dateDP; // DP: Date Picker
     @FXML
-    private LineChart<String, Integer> monthGraph; // Day chart
+    private LineChart<String, Integer> monthGraph;
     @FXML
-    private LineChart<String, Integer> yearGraph; // Month chart
+    private LineChart<String, Integer> yearGraph;
 
     // Initializes and reads the data file
     @FXML
