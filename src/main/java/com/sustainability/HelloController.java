@@ -120,7 +120,7 @@ public class HelloController {
     }
 
     @FXML
-    public void ShowGraph(ActionEvent event) throws SQLException {
+    public void ShowGraphs(ActionEvent event) throws SQLException {
         ArrayList<FillPercentOverflow> percentOverflow = new ArrayList<>();
 
         java.sql.Date startDate = Date.valueOf("2025-02-17");
