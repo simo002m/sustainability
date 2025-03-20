@@ -1,8 +1,8 @@
 package com.sustainability;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ManageDatabase implements DOADatebaseManager{
@@ -47,19 +47,19 @@ public class ManageDatabase implements DOADatebaseManager{
 
             //added data in tblCompartments
             PreparedStatement pstmt2 = conn.prepareStatement(sql2);
-            pstmt.setString(1, measurement.getFillPercentage());
-            pstmt.setString(2, measurement.getId());
-            pstmt.setString(3, measurement.getCompartment());
+            pstmt2.setString(1, measurement.getFillPercentage());
+            pstmt2.setString(2, measurement.getId());
+            pstmt2.setString(3, measurement.getCompartment());
 
             int affectedRows = pstmt.executeUpdate();
             affectedRows = affectedRows + pstmt2.executeUpdate();
 
-            if (affectedRows > 7){
+            if (affectedRows > 0){
                 System.out.println("Measurement: " + measurement.getId()+ " was Successfully added to the database.");
             }
 
             pstmt.close();
-            pstmt2.close();
+            //pstmt2.close();
         }
         catch (Exception e)
         {
@@ -67,5 +67,54 @@ public class ManageDatabase implements DOADatebaseManager{
             System.out.println("Failed to add measurement to the database.");
         }
     }
+
+    @Override
+    public List<String> readCollectionLocations(Date collectionDate) throws SQLException {
+        List<String> locations = new ArrayList<String>();
+        String sqlStatement = "SELECT DISTINCT fldAddress FROM tblBinLocation WHERE fldBinID IN (SELECT tblEmptyings.fldBinID from tblEmptyings INNER JOIN tblCompartments ON tblEmptyings.fldBinID = tblCompartments.fldTrashBinID WHERE tblEmptyings.fldDate = ? AND tblCompartments.fldFillPercentage > 33);";
+
+        PreparedStatement pstmt = conn.prepareStatement(sqlStatement);
+        //TBD TBD TBD TBD
+        //Temporary:
+        locations.add("Campingplads Sønderby");
+        locations.add("Campingplads Drejby");
+        locations.add("Sommerhusområdet Sønderby");
+
+        return locations;
+    }
+
+    @Override
+    public ArrayList<FillPercentOverflow> getFillpercentAndOverflow(Date startDate, Date endDate) {
+        String sql = "SELECT DISTINCT tblCompartments.fldFillpercent, tblEmptyings.fldOverflow FROM tblCompartments JOIN tblBin ON tblCompartments.fldTrashBinID = tblBin.fldBinID JOIN tblEmptyings ON tblBin.fldBinID = tblEmptyings.fldBinID WHERE tblEmptyings.fldDate BETWEEN ? AND ?";
+
+        ArrayList<FillPercentOverflow> fillPercentOverflowArrayList = new ArrayList<>(); // Initialize the ArrayList
+
+        try {
+            getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setDate(1, startDate);
+            pstmt.setDate(2, endDate);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int fillpercent = rs.getInt("fldFillpercent");
+                boolean overflow = rs.getInt("fldOverflow") == 1;
+
+                FillPercentOverflow newObejct = new FillPercentOverflow(fillpercent, overflow);
+
+                fillPercentOverflowArrayList.add(newObejct);
+            }
+        } catch (Exception e) {}
+        int counter = 0;
+        for (FillPercentOverflow fillPercentOverflow : fillPercentOverflowArrayList) {
+
+            counter++;
+            System.out.println(fillPercentOverflow.getFillPercent() + " " + fillPercentOverflow.isOverflow());
+        }
+        System.out.println("Number of records bewteen " + startDate + " and " + endDate + " : " + counter);
+
+        return fillPercentOverflowArrayList;
+    }
+
 
 }

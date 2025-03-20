@@ -1,8 +1,6 @@
 package com.sustainability;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Measurement {
     private String id;
