@@ -59,7 +59,6 @@ public class GraphsController {
         }
         createGraphs();
 
-
         int kmSavedYearly = 0;
         double timeSavedYearly = 0;
 

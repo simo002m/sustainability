@@ -2,6 +2,8 @@ package com.sustainability;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -19,6 +21,7 @@ import java.util.Objects;
 
 import javafx.event.ActionEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class HelloController {
     @FXML
@@ -154,5 +157,16 @@ public class HelloController {
         percentOverflow = dbman.getFillpercentAndOverflow(startDate,endDate);
 
         ShowBarChart(percentOverflow);
+    }
+
+    public void openGraphsStage() throws IOException
+    {
+        Stage graphsStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("graphs.fxml"));
+        Scene scene2 = new Scene(fxmlLoader.load(), 900, 780);
+        graphsStage.setTitle("Grafer");
+        graphsStage.setResizable(false);
+        graphsStage.setScene(scene2);
+        graphsStage.show();
     }
 }
