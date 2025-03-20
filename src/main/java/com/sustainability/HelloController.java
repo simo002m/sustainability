@@ -18,13 +18,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import javafx.event.ActionEvent;
+import javafx.scene.text.Text;
 
 public class HelloController {
     @FXML
-    private DatePicker ChooseDate1;
+    private DatePicker ChooseStartDate;
 
     @FXML
-    private DatePicker ChooseDate2;
+    private DatePicker ChooseEndDate;
+
+    @FXML
+    private Label ShowDateHere;
 
     @FXML
     private BarChart <String, Number> BarChart1;
@@ -41,7 +45,8 @@ public class HelloController {
     @FXML
     public void initialize() {
         // Load the CSS file
-        BarChart1.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/sustainability/BarChart.css")).toExternalForm());}
+        BarChart1.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/sustainability/BarChart.css")).toExternalForm());
+    }
 
     @FXML
     public void GetDataOnClick(ActionEvent event) {
@@ -108,6 +113,8 @@ public class HelloController {
             }
         }
 
+        BarChart1.getData().clear();
+
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         String GreenName = "Green: " + underEqual90Counter;
@@ -138,8 +145,10 @@ public class HelloController {
     public void ShowGraphs(ActionEvent event) throws SQLException {
         ArrayList<FillPercentOverflow> percentOverflow = new ArrayList<>();
 
-        java.sql.Date startDate = Date.valueOf("2025-02-17");
-        java.sql.Date endDate = Date.valueOf("2025-02-25");
+
+        java.sql.Date startDate = Date.valueOf(ChooseStartDate.getValue().toString());
+        java.sql.Date endDate = Date.valueOf(ChooseEndDate.getValue().toString());
+        ShowDateHere.setText("Fra den: " + ChooseStartDate.getValue().toString() + " Til den: " + ChooseEndDate.getValue().toString() );
 
         DOADatebaseManager dbman = new ManageDatabase();
         percentOverflow = dbman.getFillpercentAndOverflow(startDate,endDate);
