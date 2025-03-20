@@ -42,8 +42,12 @@ public class RoutePlanner {
         //find shortest route from drejby to locations and back
         if (locations.isEmpty()) {
             r = new Route(0, 0);
+            return r;
         }
 
+        else if (locations.size() == 5) {
+            r = new Route();
+        }
 
         //times shortest route with AVERAGE_KM_HOUR
 
