@@ -9,18 +9,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="988.0" style="-fx-background-color: #f8f8ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sustainability.HelloController">
-   <top>
-      <Label text="Søjlediagrammer" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets top="10.0" />
-         </BorderPane.margin></Label>
-   </top>
    <left>
 
    </left>
@@ -51,24 +43,31 @@
          </children></HBox>
    </center>
    <bottom>
-      <HBox prefHeight="60.0" prefWidth="990.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="80.0" prefWidth="984.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#openGraphsStage" text="Vis grafer">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-            <DatePicker fx:id="ChooseDate1">
+            <DatePicker fx:id="ChooseStartDate" promptText="Start Date">
                <HBox.margin>
                   <Insets left="180.0" />
                </HBox.margin>
             </DatePicker>
-            <Button fx:id="showGraph" mnemonicParsing="false" onAction="#ShowGraphs" text="Show" />
-            <Button fx:id="GetData" mnemonicParsing="false" onAction="#GetDataOnClick" prefHeight="26.0" prefWidth="133.0" text="Hent data">
+            <VBox prefHeight="60.0" prefWidth="215.0">
+               <children>
+                  <Button fx:id="showGraph" alignment="CENTER" mnemonicParsing="false" onAction="#ShowGraphs" prefHeight="25.0" prefWidth="98.0" text="Show">
+                     <VBox.margin>
+                        <Insets left="55.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="GetData" mnemonicParsing="false" onAction="#GetDataOnClick" prefHeight="26.0" prefWidth="80.0" text="Hent data">
+                     <VBox.margin>
+                        <Insets left="63.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
                <HBox.margin>
-                  <Insets left="90.0" />
-               </HBox.margin></Button>
-            <DatePicker fx:id="ChooseDate2">
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </VBox>
+            <DatePicker fx:id="ChooseEndDate" promptText="End Date">
                <HBox.margin>
                   <Insets left="100.0" />
                </HBox.margin>
@@ -76,4 +75,26 @@
          </children>
       </HBox>
    </bottom>
+   <top>
+      <HBox prefHeight="40.0" prefWidth="988.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="ShowDateHere" contentDisplay="CENTER" prefHeight="40.0" prefWidth="271.0" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets left="130.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="177.0" text="Søjlediagrammer">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
