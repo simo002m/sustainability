@@ -5,6 +5,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
+import java.text.DecimalFormat;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,29 +16,29 @@ public class GraphsController {
     private ArrayList<Integer> oldKms = new ArrayList<Integer>();
     private ArrayList<Integer> newKms = new ArrayList<Integer>();
 
-    private ArrayList<Integer> oldTime = new ArrayList<Integer>();
-    private ArrayList<Integer> newTime = new ArrayList<Integer>();
+    private ArrayList<Double> oldTime = new ArrayList<Double>();
+    private ArrayList<Double> newTime = new ArrayList<Double>();
 
     private ArrayList<Integer> savedKms = new ArrayList<Integer>();
-    private ArrayList<Integer> savedTime = new ArrayList<Integer>();
+    private ArrayList<Double> savedTime = new ArrayList<Double>();
 
     private int oldRouteKms = 80;
-    private int oldRouteMinutes = 135;
+    private double oldRouteMinutes = 135;
 
     private int minKm = 60;
     private int maxKm = 70;
 
-    private int minTimeMinutes = 90;
-    private int maxTimeMinutes = 100;
+    private double minTimeMinutes = 70;
+    private double maxTimeMinutes = 100;
 
     @FXML
     private LineChart<String, Integer> kmGraph;
     @FXML
-    private LineChart<String, Integer> timeGraph;
+    private LineChart<String, Double> timeGraph;
     @FXML
     private LineChart<String, Integer> kmSavedGraph;
     @FXML
-    private LineChart<String, Integer> timeSavedGraph;
+    private LineChart<String, Double> timeSavedGraph;
     @FXML
     private Label kmSavings;
     @FXML
@@ -46,12 +47,12 @@ public class GraphsController {
     @FXML
     public void initialize() {
         for (int month = 0; month < 12; month++) {
-            oldKms.add(oldRouteKms * 4);
+            oldKms.add((new Random().nextInt(90 - oldRouteKms) + oldRouteKms) * 4);
             newKms.add((new Random().nextInt(maxKm - minKm) + minKm) * 4);
 
-            oldTime.add(oldRouteMinutes * 4);
-            newTime.add((new Random().nextInt(maxTimeMinutes - minTimeMinutes) + minTimeMinutes) * 4);
-            System.out.println(newTime.get(month) * 4);
+            oldTime.add((new Random().nextDouble(160 - oldRouteMinutes) + oldRouteMinutes) * 4);
+            newTime.add((new Random().nextDouble(maxTimeMinutes - minTimeMinutes) + minTimeMinutes) * 4);
+            System.out.println(newTime.get(month));
 
             savedKms.add(oldKms.get(month) - newKms.get(month));
             savedTime.add(oldTime.get(month) - newTime.get(month));
@@ -60,7 +61,7 @@ public class GraphsController {
 
 
         int kmSavedYearly = 0;
-        int timeSavedYearly = 0;
+        double timeSavedYearly = 0;
 
         for (int i = 0; i < 12; i++) {
             //add monthly kms and time saved
@@ -69,13 +70,13 @@ public class GraphsController {
         }
 
         int kmSavedAverageMonthly = kmSavedYearly / 12;
-        int timeSavedAverageMonthly = timeSavedYearly / 12;
+        double timeSavedAverageMonthly = timeSavedYearly / 12;
 
         String hourOrHours = "timer";
         if (timeSavedAverageMonthly < 2) { hourOrHours = "time"; }
 
         kmSavings.setText("Årlig besparelse: " + kmSavedYearly + " km\nGennemsnitlig månedlig besparelse: " + kmSavedAverageMonthly + " km");
-        timeSavings.setText("Årlig besparelse: " + timeSavedYearly + " timer\nGennemsnitlig månedlig besparelse: " + timeSavedAverageMonthly + " " + hourOrHours);
+        timeSavings.setText(String.format("Årlig besparelse: %.1f timer\nGennemsnitlig månedlig besparelse: %.1f %s", timeSavedYearly, timeSavedAverageMonthly, hourOrHours));
     }
 
     public void createGraphs() {
@@ -84,13 +85,13 @@ public class GraphsController {
         oldKmsSeries.setName("2024");
         newKmsSeries.setName("2025");
 
-        XYChart.Series<String, Integer> oldTimeSeries = new XYChart.Series<>();
-        XYChart.Series<String, Integer> newTimeSeries = new XYChart.Series<>();
+        XYChart.Series<String, Double> oldTimeSeries = new XYChart.Series<>();
+        XYChart.Series<String, Double> newTimeSeries = new XYChart.Series<>();
         oldTimeSeries.setName("2024");
         newTimeSeries.setName("2025");
 
         XYChart.Series<String, Integer> savedKmsSeries = new XYChart.Series<>();
-        XYChart.Series<String, Integer> savedTimeSeries = new XYChart.Series<>();
+        XYChart.Series<String, Double> savedTimeSeries = new XYChart.Series<>();
         savedKmsSeries.setName("Km");
         savedTimeSeries.setName("Timer");
 
@@ -110,6 +111,5 @@ public class GraphsController {
         kmSavedGraph.getData().addAll(savedKmsSeries);
         timeSavedGraph.getData().addAll(savedTimeSeries);
     }
-
 
 }
