@@ -26,10 +26,10 @@ public class HelloApplication extends Application {
         DOADatebaseManager datebaseManager = new ManageDatabase();
         datebaseManager.getConnection();
 
-        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt"));
-        for (Measurement measurement : measurements){
-            datebaseManager.addMeasesurementToDatebase(measurement);
-        }
+//        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt"));
+//        for (Measurement measurement : measurements){
+//            datebaseManager.addMeasesurementToDatebase(measurement);
+//        }
 
         launch();
     }

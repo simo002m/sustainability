@@ -11,6 +11,7 @@ module com.sustainability {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
 
     opens com.sustainability to javafx.fxml;
     exports com.sustainability;

@@ -11,7 +11,10 @@
       <Label text="Søjlediagrammer" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="15.0" />
-         </font></Label>
+         </font>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin></Label>
    </top>
    <left>
 
@@ -24,7 +27,7 @@
    <center>
       <HBox prefHeight="425.0" prefWidth="988.0" BorderPane.alignment="CENTER">
          <children>
-            <BarChart prefHeight="470.0" prefWidth="491.0">
+            <BarChart fx:id="BarChart1" prefHeight="470.0" prefWidth="491.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -32,7 +35,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <BarChart prefHeight="470.0" prefWidth="490.0">
+            <BarChart fx:id="BarChart2" prefHeight="470.0" prefWidth="490.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -45,16 +48,20 @@
    <bottom>
       <HBox prefHeight="60.0" prefWidth="990.0" BorderPane.alignment="CENTER">
          <children>
-            <ChoiceBox fx:id="ChooseMonth1" prefWidth="150.0" style="-fx-background-color: #e6e6fa; -fx-border-color: #808080;">
+            <DatePicker fx:id="ChooseDate1">
                <HBox.margin>
-                  <Insets left="190.0" top="10.0" />
+                  <Insets left="180.0" />
                </HBox.margin>
-            </ChoiceBox>
-            <ChoiceBox fx:id="ChooseMonth2" prefWidth="150.0" style="-fx-background-color: #e6e6fa; -fx-border-color: #808080;">
+            </DatePicker>
+            <Button fx:id="GetData" mnemonicParsing="false" onAction="#GetDataOnClick" prefHeight="26.0" prefWidth="133.0" text="Hent data">
                <HBox.margin>
-                  <Insets left="350.0" top="10.0" />
+                  <Insets left="90.0" />
+               </HBox.margin></Button>
+            <DatePicker fx:id="ChooseDate2">
+               <HBox.margin>
+                  <Insets left="100.0" />
                </HBox.margin>
-            </ChoiceBox>
+            </DatePicker>
          </children>
       </HBox>
    </bottom>
