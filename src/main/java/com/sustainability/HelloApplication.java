@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,10 +27,14 @@ public class HelloApplication extends Application {
         DOADatebaseManager datebaseManager = new ManageDatabase();
         datebaseManager.getConnection();
 
-        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt"));
-        for (Measurement measurement : measurements){
-            datebaseManager.addMeasesurementToDatebase(measurement);
-        }
+//        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt"));
+//        for (Measurement measurement : measurements){
+//            datebaseManager.addMeasesurementToDatebase(measurement);
+//        }
+
+        java.sql.Date startDate = Date.valueOf("2025-03-18");
+        java.sql.Date endDate = Date.valueOf("2025-03-19");
+        datebaseManager.getFillpercentAndOverflow(startDate, endDate);
 
         launch();
     }

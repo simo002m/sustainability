@@ -1,8 +1,7 @@
 package com.sustainability;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
 
 
 public class ManageDatabase implements DOADatebaseManager{
@@ -66,6 +65,34 @@ public class ManageDatabase implements DOADatebaseManager{
             System.out.println(e.getMessage());
             System.out.println("Failed to add measurement to the database.");
         }
+    }
+
+    @Override
+    public ArrayList<FillPercentOverflow> getFillpercentAndOverflow(java.sql.Date startDate, Date endDate) {
+        String sql = "SELECT tblCompartments.fldFillpercent, tblEmptyings.fldOverflow FROM tblCompartments JOIN tblBin ON tblCompartments.fldTrashBinID = tblBin.fldBinID JOIN tblEmptyings ON tblBin.fldBinID = tblEmptyings.fldBinID WHERE tblEmptyings.fldDate BETWEEN ? AND ?";
+
+        ArrayList<FillPercentOverflow> fillPercentOverflowArrayList = null;
+        try {
+            getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setDate(1, startDate);
+            pstmt.setDate(2, endDate);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int fillpercent = rs.getInt("fldFillpercent");
+                boolean overflow = rs.getInt("fldOverflow") == 1;
+
+                FillPercentOverflow newObejct = new FillPercentOverflow(fillpercent, overflow);
+
+                fillPercentOverflowArrayList.add(newObejct);
+            }
+        } catch (Exception e) {}
+
+        for (FillPercentOverflow fillPercentOverflow : fillPercentOverflowArrayList) {
+            System.out.println(fillPercentOverflow);
+        }
+        return fillPercentOverflowArrayList;
     }
 
 }
