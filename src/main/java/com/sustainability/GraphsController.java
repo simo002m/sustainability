@@ -3,6 +3,7 @@ package com.sustainability;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 
 import java.time.Month;
 import java.util.ArrayList;
@@ -26,15 +27,21 @@ public class GraphsController {
     private int minKm = 60;
     private int maxKm = 70;
 
-    private int minTimeMinutes = 100;
-    private int maxTimeMinutes = 110;
+    private int minTimeMinutes = 90;
+    private int maxTimeMinutes = 100;
 
     @FXML
     private LineChart<String, Integer> kmGraph;
     @FXML
     private LineChart<String, Integer> timeGraph;
     @FXML
-    private LineChart<String, Integer> savingsGraph;
+    private LineChart<String, Integer> kmSavedGraph;
+    @FXML
+    private LineChart<String, Integer> timeSavedGraph;
+    @FXML
+    private Label kmSavings;
+    @FXML
+    private Label timeSavings;
 
     @FXML
     public void initialize() {
@@ -44,11 +51,31 @@ public class GraphsController {
 
             oldTime.add(oldRouteMinutes * 4);
             newTime.add((new Random().nextInt(maxTimeMinutes - minTimeMinutes) + minTimeMinutes) * 4);
+            System.out.println(newTime.get(month) * 4);
 
             savedKms.add(oldKms.get(month) - newKms.get(month));
             savedTime.add(oldTime.get(month) - newTime.get(month));
         }
         createGraphs();
+
+
+        int kmSavedYearly = 0;
+        int timeSavedYearly = 0;
+
+        for (int i = 0; i < 12; i++) {
+            //add monthly kms and time saved
+            kmSavedYearly += savedKms.get(i);
+            timeSavedYearly += savedTime.get(i) / 60;
+        }
+
+        int kmSavedAverageMonthly = kmSavedYearly / 12;
+        int timeSavedAverageMonthly = timeSavedYearly / 12;
+
+        String hourOrHours = "timer";
+        if (timeSavedAverageMonthly < 2) { hourOrHours = "time"; }
+
+        kmSavings.setText("Årlig besparelse: " + kmSavedYearly + " km\nGennemsnitlig månedlig besparelse: " + kmSavedAverageMonthly + " km");
+        timeSavings.setText("Årlig besparelse: " + timeSavedYearly + " timer\nGennemsnitlig månedlig besparelse: " + timeSavedAverageMonthly + " " + hourOrHours);
     }
 
     public void createGraphs() {
@@ -80,7 +107,8 @@ public class GraphsController {
 
         kmGraph.getData().addAll(oldKmsSeries, newKmsSeries);
         timeGraph.getData().addAll(oldTimeSeries, newTimeSeries);
-        savingsGraph.getData().addAll(savedKmsSeries, savedTimeSeries);
+        kmSavedGraph.getData().addAll(savedKmsSeries);
+        timeSavedGraph.getData().addAll(savedTimeSeries);
     }
 
 

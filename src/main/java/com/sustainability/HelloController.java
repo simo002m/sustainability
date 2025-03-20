@@ -155,7 +155,7 @@ public class HelloController {
     {
         Stage graphsStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("graphs.fxml"));
-        Scene scene2 = new Scene(fxmlLoader.load(), 900, 700);
+        Scene scene2 = new Scene(fxmlLoader.load(), 900, 780);
         graphsStage.setTitle("Grafer");
         graphsStage.setResizable(false);
         graphsStage.setScene(scene2);
