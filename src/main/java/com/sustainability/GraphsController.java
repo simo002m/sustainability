@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphsController {
-    private ArrayList<Route> oldRoute;
-    private ArrayList<TimeCalculater> newRoute;
+    private ArrayList<NewRoute> oldRoute;
+    private ArrayList<OldRoutes> newRoute;
 
     @FXML
     private Label errorMessage; // Label to show error message when choosing invalid choice
