@@ -1,6 +1,7 @@
 package com.sustainability;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ private final double DIST_SONDERBYSOMMERHUS_BROAGER = DIST_DREJBY_SONDERBYSOMMER
 private final int AVERAGE_KM_HOUR = 55;
 
 
-public Route planRoute(Date collectionDate){
+public Route planRoute(Date collectionDate) throws SQLException {
     Route r;
     double dist;
     List<String> locations = new ArrayList<>();

@@ -27,13 +27,13 @@ public class HelloApplication extends Application {
         DOADatebaseManager datebaseManager = new ManageDatabase();
         datebaseManager.getConnection();
 
-//        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\trash_bin_measurements_v2.txt"));
+//        ArrayList<Measurement> measurements = new ArrayList<>(readCVSFile("C:\\Users\\jakob\\Desktop\\FHA\\sustainability\\src\\main\\resources\\com\\sustainability\\CVSFile\\2025-03-04.txt"));
 //        for (Measurement measurement : measurements){
 //            datebaseManager.addMeasesurementToDatebase(measurement);
 //        }
 
-        java.sql.Date startDate = Date.valueOf("2025-03-18");
-        java.sql.Date endDate = Date.valueOf("2025-03-19");
+        java.sql.Date startDate = Date.valueOf("2025-02-17");
+        java.sql.Date endDate = Date.valueOf("2025-02-25");
         datebaseManager.getFillpercentAndOverflow(startDate, endDate);
 
         launch();

@@ -84,10 +84,11 @@ public class ManageDatabase implements DOADatebaseManager{
     }
 
     @Override
-    public ArrayList<FillPercentOverflow> getFillpercentAndOverflow(java.sql.Date startDate, Date endDate) {
-        String sql = "SELECT tblCompartments.fldFillpercent, tblEmptyings.fldOverflow FROM tblCompartments JOIN tblBin ON tblCompartments.fldTrashBinID = tblBin.fldBinID JOIN tblEmptyings ON tblBin.fldBinID = tblEmptyings.fldBinID WHERE tblEmptyings.fldDate BETWEEN ? AND ?";
+    public ArrayList<FillPercentOverflow> getFillpercentAndOverflow(Date startDate, Date endDate) {
+        String sql = "SELECT DISTINCT tblCompartments.fldFillpercent, tblEmptyings.fldOverflow FROM tblCompartments JOIN tblBin ON tblCompartments.fldTrashBinID = tblBin.fldBinID JOIN tblEmptyings ON tblBin.fldBinID = tblEmptyings.fldBinID WHERE tblEmptyings.fldDate BETWEEN ? AND ?";
 
-        ArrayList<FillPercentOverflow> fillPercentOverflowArrayList = null;
+        ArrayList<FillPercentOverflow> fillPercentOverflowArrayList = new ArrayList<>(); // Initialize the ArrayList
+
         try {
             getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -104,11 +105,16 @@ public class ManageDatabase implements DOADatebaseManager{
                 fillPercentOverflowArrayList.add(newObejct);
             }
         } catch (Exception e) {}
-
+        int counter = 0;
         for (FillPercentOverflow fillPercentOverflow : fillPercentOverflowArrayList) {
-            System.out.println(fillPercentOverflow);
+
+            counter++;
+            System.out.println(fillPercentOverflow.getFillPercent() + " " + fillPercentOverflow.isOverflow());
         }
+        System.out.println("Number of records bewteen " + startDate + " and " + endDate + " : " + counter);
+
         return fillPercentOverflowArrayList;
     }
+
 
 }
