@@ -1,87 +1,86 @@
 package com.sustainability;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Random;
 
 public class GraphsController {
-    private ArrayList<> oldRoutes;
-    private ArrayList<> newRoutes;
+    private String[] months = {"Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"};
+    private int[] monthsLength = {Month.JANUARY.length(false), Month.FEBRUARY.length(false), Month.MARCH.length(false), Month.APRIL.length(false), Month.MAY.length(false), Month.JUNE.length(false), Month.JULY.length(false), Month.AUGUST.length(false), Month.SEPTEMBER.length(false), Month.OCTOBER.length(false), Month.NOVEMBER.length(false), Month.DECEMBER.length(false)};
+
+    private ArrayList<Integer> oldKms = new ArrayList<Integer>();
+    private ArrayList<Integer> newKms = new ArrayList<Integer>();
+
+    private ArrayList<Integer> oldTime = new ArrayList<Integer>();
+    private ArrayList<Integer> newTime = new ArrayList<Integer>();
+
+    private ArrayList<Integer> savedKms = new ArrayList<Integer>();
+    private ArrayList<Integer> savedTime = new ArrayList<Integer>();
+
+    private int minKm = 50;
+    private int maxKm = 60;
+
+    private int minTime = 80;
+    private int maxTime = 100;
 
     @FXML
-    private DatePicker dateDP; // DP: Date Picker
+    private LineChart<String, Integer> kmGraph;
     @FXML
-    private LineChart<String, Integer> monthGraph;
+    private LineChart<String, Integer> timeGraph;
     @FXML
-    private LineChart<String, Integer> yearGraph;
+    private LineChart<String, Integer> savingsGraph;
 
-    // Initializes and reads the data file
     @FXML
     public void initialize() {
-        for () {
+        for (int month = 0; month < 12; month++) {
+            oldKms.add(80 * monthsLength[month]);
+            newKms.add((new Random().nextInt(maxKm - minKm) + minKm) * monthsLength[month]);
 
+            oldTime.add(135 * monthsLength[month]);
+            newTime.add((new Random().nextInt(maxTime - minTime) + minTime) * monthsLength[month]);
+
+            savedKms.add(oldKms.get(month) - newKms.get(month));
+            savedTime.add(oldTime.get(month) - newTime.get(month));
         }
 
-        // Ensure both charts start hidden
-        monthGraph.setVisible(false);
-        yearGraph.setVisible(false);
+        createGraphs();
     }
 
-    // The on action for the search button
-    public void createChartClick() {
+    public void createGraphs() {
+        XYChart.Series<String, Integer> oldKmsSeries = new XYChart.Series<>();
+        XYChart.Series<String, Integer> newKmsSeries = new XYChart.Series<>();
+        oldKmsSeries.setName("2024");
+        newKmsSeries.setName("2025");
 
+        XYChart.Series<String, Integer> oldTimeSeries = new XYChart.Series<>();
+        XYChart.Series<String, Integer> newTimeSeries = new XYChart.Series<>();
+        oldTimeSeries.setName("2024");
+        newTimeSeries.setName("2025");
 
-        createMonthGraph();
-        createYearGraph();
-    }
+        XYChart.Series<String, Integer> savedKmsSeries = new XYChart.Series<>();
+        XYChart.Series<String, Integer> savedTimeSeries = new XYChart.Series<>();
+        savedKmsSeries.setName("Km");
+        savedTimeSeries.setName("Timer");
 
-    // Create the day chart
-    public void createMonthGraph() {
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
-        series.setName("Site ID: " + siteIDPicked + "\nDate: " + datePicked.toString());
+        for (int i = 0; i < months.length; i++) {
+            oldKmsSeries.getData().add(new XYChart.Data<>(months[i], oldKms.get(i)));
+            newKmsSeries.getData().add(new XYChart.Data<>(months[i], newKms.get(i)));
 
-        for (int i = 0; i < totalWhs.size(); i++) {
-            series.getData().add(new XYChart.Data<>(times.get(i) + ":00", totalWhs.get(i)));
+            oldTimeSeries.getData().add(new XYChart.Data<>(months[i], oldTime.get(i)));
+            newTimeSeries.getData().add(new XYChart.Data<>(months[i], newTime.get(i)));
+
+            savedKmsSeries.getData().add(new XYChart.Data<>(months[i], savedKms.get(i)));
+            savedTimeSeries.getData().add(new XYChart.Data<>(months[i], savedTime.get(i)));
         }
 
-        monthGraph.setData(FXCollections.observableArrayList(series));
+        kmGraph.getData().addAll(oldKmsSeries, newKmsSeries);
+        timeGraph.getData().addAll(oldTimeSeries, newTimeSeries);
+        savingsGraph.getData().addAll(savedKmsSeries, savedTimeSeries);
     }
 
-    // Create the month chart
-    public void createYearGraph() {
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
-        series.setName("Site ID: " + siteIDPicked + "\nMonth: " + datePicked.getMonth() + " " + datePicked.getYear());
-
-        for (int day : dailyTotals.keySet()) {
-            series.getData().add(new XYChart.Data<>("Day " + day, dailyTotals.get(day)));
-        }
-
-        yearGraph.setData(FXCollections.observableArrayList(series));
-    }
-
-    // Button to show the day chart
-    public void showMonthGraph()
-    {
-        monthGraph.setVisible(true);
-        yearGraph.setVisible(false);
-    }
-
-    // Button to show the month chart
-    public void showYearGraph()
-    {
-        monthGraph.setVisible(false);
-        yearGraph.setVisible(true);
-    }
 
 }
