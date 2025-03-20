@@ -53,6 +53,7 @@
                   <Insets left="180.0" />
                </HBox.margin>
             </DatePicker>
+            <Button fx:id="showGraph" mnemonicParsing="false" onAction="#ShowGraphs" text="Show" />
             <Button fx:id="GetData" mnemonicParsing="false" onAction="#GetDataOnClick" prefHeight="26.0" prefWidth="133.0" text="Hent data">
                <HBox.margin>
                   <Insets left="90.0" />
