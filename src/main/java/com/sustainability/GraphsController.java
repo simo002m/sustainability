@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphsController {
-    private ArrayList<TimeCalculater> oldRoute;
+    private ArrayList<Route> oldRoute;
     private ArrayList<TimeCalculater> newRoute;
 
     @FXML
@@ -44,10 +44,7 @@ public class GraphsController {
 
     // The on action for the search button
     public void createChartClick() {
-        ArrayList<Integer> originalKms = new ArrayList<>();
-        ArrayList<Integer> newKms = new ArrayList<>();
-        ArrayList<Integer> originalTime = new ArrayList<>();
-        ArrayList<Integer> newTime = new ArrayList<>();
+
 
         createMonthGraph();
         createYearGraph();
