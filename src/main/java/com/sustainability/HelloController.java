@@ -1,5 +1,6 @@
 package com.sustainability;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -14,6 +15,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javafx.event.ActionEvent;
 
@@ -25,7 +27,7 @@ public class HelloController {
     private DatePicker ChooseDate2;
 
     @FXML
-    private BarChart <Number, String> BarChart1;
+    private BarChart <String, Number> BarChart1;
 
     @FXML
     private BarChart <Number, String> BarChart2;
@@ -37,7 +39,9 @@ public class HelloController {
     private Button showGraph;
 
     @FXML
-    public void initialize() {}
+    public void initialize() {
+        // Load the CSS file
+        BarChart1.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/sustainability/BarChart.css")).toExternalForm());}
 
     @FXML
     public void GetDataOnClick(ActionEvent event) {
@@ -79,44 +83,55 @@ public class HelloController {
             }
     }
     @FXML
-    public void ShowBarChart(ArrayList<FillPercentOverflow> percentOverflow){
-        //blink green
+    public void ShowBarChart(ArrayList<FillPercentOverflow> percentOverflow) {
+        // Blink green
         int overflowCounter = 0;
-        //red
+        // Red
         int over90Counter = 0;
-        //blink yellow
+        // Blink yellow
         int over33Counter = 0;
-        //green
+        // Green
         int underEqual90Counter = 0;
 
-        for (FillPercentOverflow checklist : percentOverflow){
-            if (checklist.isOverflow()){
+        for (FillPercentOverflow checklist : percentOverflow) {
+            if (checklist.isOverflow()) {
                 overflowCounter++;
             }
-
-            if(checklist.getFillPercent() > 90 ){
+            if (checklist.getFillPercent() > 90) {
                 over90Counter++;
             }
-            if(checklist.getFillPercent() <= 90){
+            if (checklist.getFillPercent() <= 90) {
                 underEqual90Counter++;
             }
-            if(checklist.getFillPercent() >= 33){
+            if (checklist.getFillPercent() >= 33) {
                 over33Counter++;
             }
         }
 
-        XYChart.Series series = new XYChart.Series();
-        //series.setName("Dato: " + DatePicker.getValue().toString() + " & Site ID: " + getSiteID());
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        //adds data to the series hourly
+        String GreenName = "Green: " + underEqual90Counter;
+        String GreenBlinking = "Overflow(Green Blink): " + overflowCounter;
+        String RedName = "Red: " + over90Counter;
+        String PickUp = "PickUp: " + over33Counter;
 
-        series.getData().add(new XYChart.Data<>("Green",underEqual90Counter));
-        series.getData().add(new XYChart.Data<>("Overflow(Green Blink)",overflowCounter));
-        series.getData().add(new XYChart.Data<>("Red",over90Counter));
-        series.getData().add(new XYChart.Data<>("Pickup(Yellow Blink)",over33Counter));
+        XYChart.Data<String, Number> greenBar = new XYChart.Data<>(GreenName , underEqual90Counter);
+        XYChart.Data<String, Number> overflowBar = new XYChart.Data<>(GreenBlinking, overflowCounter);
+        XYChart.Data<String, Number> redBar = new XYChart.Data<>(RedName, over90Counter);
+        XYChart.Data<String, Number> yellowBar = new XYChart.Data<>(PickUp, over33Counter);
 
+        series.getData().addAll(greenBar, overflowBar, redBar, yellowBar);
 
+        // Add series to BarChart
         BarChart1.getData().addAll(series);
+
+        // Apply colors after nodes are created
+        Platform.runLater(() -> {
+            greenBar.getNode().setStyle("-fx-bar-fill: lightgreen;");
+            overflowBar.getNode().setStyle("-fx-bar-fill: darkgreen;");
+            redBar.getNode().setStyle("-fx-bar-fill: red;");
+            yellowBar.getNode().setStyle("-fx-bar-fill: yellow;");
+        });
     }
 
     @FXML

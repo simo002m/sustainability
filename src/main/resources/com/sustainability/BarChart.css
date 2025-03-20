@@ -1,0 +1,5 @@
+/* chart.css */
+.default-color0.chart-bar { -fx-bar-fill: lightgreen; }       /* Color for "Green" */
+.default-color1.chart-bar { -fx-bar-fill: DarkGreen; }     /* Color for "Overflow(Green Blink)" */
+.default-color2.chart-bar { -fx-bar-fill: red; }        /* Color for "Red" */
+.default-color3.chart-bar { -fx-bar-fill: yellow; }     /* Color for "Pickup(Yellow Blink)" */
