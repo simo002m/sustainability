@@ -47,19 +47,19 @@ public class ManageDatabase implements DOADatebaseManager{
 
             //added data in tblCompartments
             PreparedStatement pstmt2 = conn.prepareStatement(sql2);
-            pstmt.setString(1, measurement.getFillPercentage());
-            pstmt.setString(2, measurement.getId());
-            pstmt.setString(3, measurement.getCompartment());
+            pstmt2.setString(1, measurement.getFillPercentage());
+            pstmt2.setString(2, measurement.getId());
+            pstmt2.setString(3, measurement.getCompartment());
 
             int affectedRows = pstmt.executeUpdate();
             affectedRows = affectedRows + pstmt2.executeUpdate();
 
-            if (affectedRows > 7){
+            if (affectedRows > 0){
                 System.out.println("Measurement: " + measurement.getId()+ " was Successfully added to the database.");
             }
 
             pstmt.close();
-            pstmt2.close();
+            //pstmt2.close();
         }
         catch (Exception e)
         {

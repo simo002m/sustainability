@@ -60,7 +60,7 @@ public class ReadFile{
         return measurements;
     }
 
-    public static Date convertDatetimeToDate(String dateTime) {
+    public static java.sql.Date convertDatetimeToDate(String dateTime) {
         java.sql.Date dateOnly = Date.valueOf(dateTime.split(" ")[0]);
         System.out.println("CONVERTED DATE: " + dateOnly);
         return dateOnly;
