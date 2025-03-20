@@ -5,8 +5,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
-import java.text.DecimalFormat;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Random;
 

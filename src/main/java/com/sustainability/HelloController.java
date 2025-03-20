@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import javafx.event.ActionEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class HelloController {
