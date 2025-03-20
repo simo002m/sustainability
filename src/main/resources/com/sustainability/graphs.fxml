@@ -1,96 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="769.0" style="-fx-background-color: #90b0b1; -fx-border-color: BLACK;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sustainability.GraphsController">
-    <effect>
-        <InnerShadow />
-    </effect>
-    <left>
-        <Pane prefHeight="263.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
-    </left>
-    <right>
-        <Pane prefHeight="263.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
-    </right>
-    <bottom>
-        <VBox alignment="CENTER" prefHeight="78.0" prefWidth="767.0" style="-fx-border-color: BLACK;" BorderPane.alignment="CENTER">
-            <children>
-                <GridPane prefHeight="24.0" prefWidth="766.0">
-                    <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="625.1999923706055" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#showMonthGraph" prefHeight="30.0" prefWidth="55.0" text="Day" />
-                        <Button mnemonicParsing="false" onAction="#showYearGraph" prefHeight="30.0" prefWidth="55.0" text="Month" GridPane.columnIndex="1" />
-                    </children>
-                </GridPane>
-                <Label fx:id="productionTotal">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-    </bottom>
-    <center>
-        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <BarChart fx:id="productionBarChart">
-                    <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis side="LEFT" />
-                    </yAxis>
-                </BarChart>
-                <LineChart fx:id="productionLineChart">
-                    <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis side="LEFT" />
-                    </yAxis>
-                </LineChart>
-            </children>
-        </StackPane>
-    </center>
-    <top>
-        <GridPane alignment="CENTER" prefHeight="66.0" prefWidth="767.0" style="-fx-background-color: #516364; -fx-border-color: BLACK;" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="80.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="160.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="258.8" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="166.80000000000007" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="80.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="123.4" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="137.00000095367432" minHeight="9.400000000000006" prefHeight="30.40000381469728" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <DatePicker fx:id="dateDP" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #f3fbfb;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Label alignment="CENTER" prefHeight="22.0" prefWidth="166.0" text="Sites" GridPane.columnIndex="1">
-                    <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="18.0" prefWidth="196.0" text="Dates" GridPane.columnIndex="2">
-                    <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                    </font>
-                </Label>
-                <ChoiceBox fx:id="siteDDL" prefHeight="26.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#createChartClick" prefHeight="26.0" prefWidth="60.0" text="Search" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" GridPane.rowIndex="1" />
-            </children>
-        </GridPane>
-    </top>
-</BorderPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sustainability.GraphsController">
+   <children>
+      <LineChart fx:id="kmGraph" layoutY="32.0" prefHeight="336.0" prefWidth="425.0" title="Km">        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <LineChart fx:id="timeGraph" layoutX="472.0" layoutY="32.0" prefHeight="336.0" prefWidth="425.0" title="Timer">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <LineChart fx:id="savingsGraph" layoutX="-1.0" layoutY="380.0" prefHeight="298.0" prefWidth="910.0" title="Besparelse">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>
