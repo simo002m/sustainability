@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphsController {
-    private ArrayList<TimeCalculater> data;
+    private ArrayList<TimeCalculater> oldRoute;
+    private ArrayList<TimeCalculater> newRoute;
 
     @FXML
     private Label errorMessage; // Label to show error message when choosing invalid choice
@@ -32,6 +33,10 @@ public class GraphsController {
     // Initializes and reads the data file
     @FXML
     public void initialize() {
+        for () {
+
+        }
+
         // Ensure both charts start hidden
         monthGraph.setVisible(false);
         yearGraph.setVisible(false);
